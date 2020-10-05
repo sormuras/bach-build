@@ -9,7 +9,7 @@ inputs:
     default: 'HEAD'
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: 'Print Java shell version'
       shell: bash
@@ -17,5 +17,5 @@ runs:
     - name: 'Build with Bach'
       shell: bash
       run: |
-        version=$([[ ${{ inputs.bach-version }} = 'HEAD' ]] echo "" || echo "@${{ inputs.bach-version }}")
+        version=$([[ ${{ inputs.bach-version }} = 'HEAD' ]] && echo '' || echo "@${{ inputs.bach-version }}")
         jshell https://sormuras.de/bach${version}/help
