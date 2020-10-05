@@ -11,5 +11,9 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: jshell https://sormuras.de/bach@${{ inputs.bach-version }}/help
+    - name 'Print Java shell version'
       shell: bash
+      run: jshell --version
+    - name: 'Build with Bach'
+      shell: bash
+      run: jshell https://sormuras.de/bach@${{ inputs.bach-version }}/help
