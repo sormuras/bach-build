@@ -1,0 +1,14 @@
+name: 'Build (Bach)'
+
+description: 'Build a modular Java project with Bach'
+
+inputs:
+  bach-version:
+    description: 'Version of Bach to use'
+    required: true
+    default: '11.9'
+
+runs:
+  using: 'composite'
+  steps:
+    - run: jshell https://sormuras.de/bach@${{ inputs.bach-version }}/help
