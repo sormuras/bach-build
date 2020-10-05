@@ -3,10 +3,6 @@ name: 'Build (Bach)'
 description: 'Build a modular Java project with Bach'
 
 inputs:
-  java-version:
-    description: 'Version of Bach to use'
-    required: true
-    default: '16-ea'
   bach-version:
     description: 'Version of Bach to use'
     required: true
@@ -15,8 +11,5 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-java@v1
-      with:
-        java-version: ${{ inputs.java-version }}
     - run: jshell https://sormuras.de/bach@${{ inputs.bach-version }}/help
       shell: bash
