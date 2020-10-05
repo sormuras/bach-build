@@ -9,7 +9,7 @@ inputs:
     default: '11.9'
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
-    - run: jshell https://sormuras.de/bach@${{ inputs.bach-version }}/help
+    - run: echo "jshell https://sormuras.de/bach@${{ inputs.bach-version }}/help"
       shell: bash
