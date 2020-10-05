@@ -6,7 +6,7 @@ inputs:
   bach-version:
     description: 'Version of Bach to use'
     required: true
-    default: '11.9'
+    default: 'HEAD'
 
 runs:
   using: "composite"
@@ -15,5 +15,10 @@ runs:
       shell: bash
       run: jshell --version
     - name: 'Build with Bach'
+      if: inputs.bach-version == 'HEAD'
+      shell: bash
+      run: jshell https://sormuras.de/bach/help
+    - name: 'Build with Bach'
+      if: inputs.bach-version != 'HEAD'
       shell: bash
       run: jshell https://sormuras.de/bach@${{ inputs.bach-version }}/help
