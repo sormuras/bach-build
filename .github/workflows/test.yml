@@ -14,8 +14,3 @@ jobs:
     - uses: sormuras/bach-build@main
       with:
         bach-version: 11.9
-
-  bach-help:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: sormuras/bach/.github/actions/help@master
