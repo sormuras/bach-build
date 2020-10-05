@@ -8,11 +8,8 @@ inputs:
     required: true
     default: '11.9'
 
-defaults:
-  run:
-    shell: bash --noprofile --norc -e -o pipefail -o xtrace {0}
-
 runs:
   using: 'composite'
   steps:
     - run: jshell https://sormuras.de/bach@${{ inputs.bach-version }}/help
+      shell: bash
