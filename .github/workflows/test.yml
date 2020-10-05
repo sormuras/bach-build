@@ -6,4 +6,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: sormuras/bach-build@master
+    - uses: sormuras/bach-build@main
