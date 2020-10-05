@@ -11,7 +11,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name 'Print Java shell version'
+    - name: 'Print Java shell version'
       shell: bash
       run: jshell --version
     - name: 'Build with Bach'
