@@ -3,6 +3,10 @@ name: 'bach-build'
 
 description: 'Build a modular Java project with Bach'
 
+branding:
+  icon: 'bold'  
+  color: 'gray-dark'
+
 inputs:
   bach-action:
     description: 'Bach action to execute, defaults to build'
