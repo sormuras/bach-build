@@ -11,8 +11,12 @@ inputs:
     description: 'Version of Bach to use, defaults to HEAD'
     required: true
     default: 'HEAD'
+  project-name:
+    description: 'Optional name of the project'
+    required: false
+    default: ${{ github.event.repository.name }}
   project-version:
-    description: 'Default version of the project, defaults to HEAD'
+    description: 'Optional version of the project'
     required: false
   working-directory:
     description: 'Working directory, defaults to github.workspace'
@@ -29,6 +33,7 @@ runs:
         echo "pwd=$(pwd)"
         echo "inputs.bach-action=${{ inputs.bach-action }}"
         echo "inputs.bach-version=${{ inputs.bach-version }}"
+        echo "inputs.project-name=${{ inputs.project-name }}"
         echo "inputs.project-version=${{ inputs.project-version }}"
         echo "inputs.working-directory=${{ inputs.working-directory }}"
         java -version
@@ -40,7 +45,8 @@ runs:
       run: |
         bach_action=${{ inputs.bach-action }}
         bach_version=$([[ ${{ inputs.bach-version }} = 'HEAD' ]] && echo '' || echo "@${{ inputs.bach-version }}")
-        version=$([[ ${{ inputs.project-version }} = '' ]] && echo '' || echo "-R-Dbach.project.version=${{ inputs.project-version }}")
-        COMMAND="jshell ${version} https://sormuras.de/bach${bach_version}/${bach_action}"
-        echo -e "\n${COMMAND}\n\n"
-        ${COMMAND}
+        name=$([[ ${{ inputs.project-name }} = '' ]] && echo '' || echo " -R-Dbach.project.name=${{ inputs.project-name }}")
+        version=$([[ ${{ inputs.project-version }} = '' ]] && echo '' || echo " -R-Dbach.project.version=${{ inputs.project-version }}")
+        JSHELL="jshell ${name}${version} https://sormuras.de/bach${bach_version}/${bach_action}"
+        echo -e "\n\n${JSHELL}\n\n"
+        ${JSHELL}
