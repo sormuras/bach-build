@@ -1,4 +1,5 @@
-name: 'Bach'
+
+name: 'bach-build'
 
 description: 'Build a modular Java project with Bach'
 
@@ -12,10 +13,11 @@ inputs:
     required: true
     default: 'HEAD'
   project-name:
-    description: 'Name of the modular Java project'
+    description: 'Optional name of the project'
     required: false
+    default: ${{ github.event.repository.name }}
   project-version:
-    description: 'Version of the modular Java project'
+    description: 'Optional version of the project'
     required: false
   working-directory:
     description: 'Working directory, defaults to github.workspace'
@@ -37,15 +39,14 @@ runs:
         echo "inputs.working-directory=${{ inputs.working-directory }}"
         java -version
         jshell --version
-
     - name: 'Run Bach'
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: |
         bach_action=${{ inputs.bach-action }}
-        bach_version=$([[ ${{ inputs.bach-version }} == 'HEAD' ]] && echo '' || echo "@${{ inputs.bach-version }}")
-        name=$([[ ${{ inputs.project-name }} == '' ]] && echo '' || echo " -R-Dbach.project.name=${{ inputs.project-name }}")
-        version=$([[ ${{ inputs.project-version }} == '' ]] && echo '' || echo " -R-Dbach.project.version=${{ inputs.project-version }}")
-        command="jshell${name}${version} https://sormuras.de/bach${bach_version}/${bach_action}"
-        echo -e "\n\n${command}\n\n"
-        ${command}
+        bach_version=$([[ ${{ inputs.bach-version }} = 'HEAD' ]] && echo '' || echo "@${{ inputs.bach-version }}")
+        name=$([[ ${{ inputs.project-name }} = '' ]] && echo '' || echo " -R-Dbach.project.name=${{ inputs.project-name }}")
+        version=$([[ ${{ inputs.project-version }} = '' ]] && echo '' || echo " -R-Dbach.project.version=${{ inputs.project-version }}")
+        JSHELL="jshell ${name}${version} https://sormuras.de/bach${bach_version}/${bach_action}"
+        echo -e "\n\n${JSHELL}\n\n"
+        ${JSHELL}
