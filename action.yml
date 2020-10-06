@@ -47,9 +47,9 @@ runs:
       working-directory: ${{ inputs.working-directory }}
       run: |
         bach_action=${{ inputs.bach-action }}
-        bach_version=$([[ ${{ inputs.bach-version }} = 'HEAD' ]] && echo '' || echo "@${{ inputs.bach-version }}")
-        name=$([[ ${{ inputs.project-name }} = '' ]] && echo '' || echo " -R-Dbach.project.name=${{ inputs.project-name }}")
-        version=$([[ ${{ inputs.project-version }} = '' ]] && echo '' || echo " -R-Dbach.project.version=${{ inputs.project-version }}")
+        bach_version=$([[ ${{ inputs.bach-version }} == 'HEAD' ]] && echo '' || echo "@${{ inputs.bach-version }}")
+        name=$([[ ! -z "${{ inputs.project-name }}" ]] && echo '' || echo " -R-Dbach.project.name=${{ inputs.project-name }}")
+        version=$([[ ! -z "${{ inputs.project-version }}" ]] && echo '' || echo " -R-Dbach.project.version=${{ inputs.project-version }}")
         JSHELL="jshell ${name}${version} https://sormuras.de/bach${bach_version}/${bach_action}"
         echo -e "\n\n${JSHELL}\n\n"
         ${JSHELL}
