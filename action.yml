@@ -52,5 +52,5 @@ runs:
         name=$([[ ${{ inputs.project-name }} = '' ]] && echo '' || echo " -R-Dbach.project.name=${{ inputs.project-name }}")
         version=$([[ ${{ inputs.project-version }} = '' ]] && echo '' || echo " -R-Dbach.project.version=${{ inputs.project-version }}")
         JSHELL="jshell ${name}${version} https://sormuras.de/bach${bach_version}/${bach_action}"
-        echo "\n\n${JSHELL}\n\n"
+        echo -e "\n\n${JSHELL}\n\n"
         ${JSHELL}
