@@ -12,7 +12,7 @@ jobs:
       - uses: sormuras/bach-build@main
         with:
           bach-action: help
-          working-directory: .github/workflows
+          working-directory: ${{ github.workspace }}/.github/workflows
 
   test-11-9:
     runs-on: ubuntu-latest
