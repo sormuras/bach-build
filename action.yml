@@ -1,21 +1,36 @@
-name: 'Build (Bach)'
+name: 'Bach'
 
 description: 'Build a modular Java project with Bach'
 
 inputs:
+  bach-action:
+    description: 'Bach action to execute, defaults to build'
+    required: true
+    default: 'build'
   bach-version:
-    description: 'Version of Bach to use'
+    description: 'Version of Bach to use, defaults to HEAD'
     required: true
     default: 'HEAD'
+  working-directory:
+    description: 'Working directory, defaults to ${{ github.action_path }}'
+    required: true
+    default: ${{ github.action_path }}
 
 runs:
   using: 'composite'
   steps:
-    - name: 'Print Java shell version'
+    - name: 'Print information'
       shell: bash
-      run: jshell --version
-    - name: 'Build with Bach'
-      shell: bash
+      working-directory: ${{ inputs.working-directory }}
       run: |
+        pwd
+        java --version
+        jshell --version        
+
+    - name: 'Run Bach'
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        action=${{ inputs.bach-action }}
         version=$([[ ${{ inputs.bach-version }} = 'HEAD' ]] && echo '' || echo "@${{ inputs.bach-version }}")
-        jshell https://sormuras.de/bach${version}/help
+        jshell https://sormuras.de/bach${version}/${action}
