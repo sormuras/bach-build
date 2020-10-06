@@ -1,4 +1,5 @@
 name: Test
+
 on: push
 
 jobs:
@@ -7,11 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          echo "pwd=$(pwd)"
-          java -version
-          jshell --version
       - uses: actions/setup-java@v1
         with:
           java-version: 15
       - uses: sormuras/bach-build@main
+        with:
+          working-directory: test
