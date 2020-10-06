@@ -4,8 +4,8 @@ name: 'bach-build'
 description: 'Build a modular Java project with Bach'
 
 branding:
-  icon: 'bold'  
-  color: 'gray-dark'
+  icon: 'music'  
+  color: 'blue'
 
 inputs:
   bach-action:
