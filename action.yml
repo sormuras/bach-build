@@ -11,6 +11,9 @@ inputs:
     description: 'Version of Bach to use, defaults to HEAD'
     required: true
     default: 'HEAD'
+  project-version:
+    description: 'Default version of the project, defaults to HEAD'
+    required: false
   working-directory:
     description: 'Working directory, defaults to github.workspace'
     required: true
@@ -24,6 +27,10 @@ runs:
       working-directory: ${{ inputs.working-directory }}
       run: |
         echo "pwd=$(pwd)"
+        echo "inputs.bach-action=${{ inputs.bach-action }}"
+        echo "inputs.bach-version=${{ inputs.bach-version }}"
+        echo "inputs.project-version=${{ inputs.project-version }}"
+        echo "inputs.working-directory=${{ inputs.working-directory }}"
         java -version
         jshell --version
 
