@@ -17,11 +17,10 @@ inputs:
     required: true
     default: 'HEAD'
   project-name:
-    description: 'Optional name of the project'
+    description: 'Name of the project'
     required: false
-    default: ${{ github.event.repository.name }}
   project-version:
-    description: 'Optional version of the project'
+    description: 'Version of the project'
     required: false
   working-directory:
     description: 'Working directory, defaults to github.workspace'
