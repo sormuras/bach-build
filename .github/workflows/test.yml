@@ -14,5 +14,6 @@ jobs:
       - uses: sormuras/bach-build@main
         with:
           project-version: 0-test
+          project-java-release: 9
           working-directory: test
           bach-version: 11.9
