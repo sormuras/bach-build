@@ -4,7 +4,7 @@ on: push
 
 jobs:
 
-  test-head:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -13,4 +13,5 @@ jobs:
           java-version: 15
       - uses: sormuras/bach-build@main
         with:
+          project-version: 0-test
           working-directory: test
