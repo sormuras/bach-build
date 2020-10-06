@@ -6,17 +6,12 @@ jobs:
   test-head:
     runs-on: ubuntu-latest
     steps:
+      - name: 'Print information'
+        run: |
+          echo "pwd=$(pwd)"
+          java -version
+          jshell --version
       - uses: actions/setup-java@v1
         with:
           java-version: 15
       - uses: sormuras/bach-build@main
-
-  test-11-9:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-java@v1
-        with:
-          java-version: 15
-      - uses: sormuras/bach-build@main
-        with:
-          bach-version: 11.9
