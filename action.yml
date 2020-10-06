@@ -11,17 +11,12 @@ inputs:
     description: 'Version of Bach to use, defaults to HEAD'
     required: true
     default: 'HEAD'
-  working-directory:
-    description: 'Working directory, defaults to github.action_path'
-    required: true
-    default: ${{ github.action_path }}
 
 runs:
   using: 'composite'
   steps:
     - name: 'Print information'
       shell: bash
-      working-directory: ${{ inputs.working-directory }}
       run: |
         echo "pwd=$(pwd)"
         java -version
@@ -29,7 +24,6 @@ runs:
 
     - name: 'Run Bach'
       shell: bash
-      working-directory: ${{ inputs.working-directory }}
       run: |
         action=${{ inputs.bach-action }}
         version=$([[ ${{ inputs.bach-version }} = 'HEAD' ]] && echo '' || echo "@${{ inputs.bach-version }}")
