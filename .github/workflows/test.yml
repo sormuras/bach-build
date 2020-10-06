@@ -6,8 +6,8 @@ jobs:
   test-head:
     runs-on: ubuntu-latest
     steps:
-      - name: 'Print information'
-        run: |
+      - uses: actions/checkout@v2
+      - run: |
           echo "pwd=$(pwd)"
           java -version
           jshell --version
