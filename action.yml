@@ -42,5 +42,5 @@ runs:
         bach_version=$([[ ${{ inputs.bach-version }} = 'HEAD' ]] && echo '' || echo "@${{ inputs.bach-version }}")
         version=$([[ ${{ inputs.project-version }} = '' ]] && echo '' || echo "-R-Dbach.project.version=${{ inputs.project-version }}")
         COMMAND="jshell ${version} https://sormuras.de/bach${bach_version}/${bach_action}"
-        echo -e "\n>> ${COMMAND}\n\n"
+        echo -e "\n${COMMAND}\n\n"
         ${COMMAND}
