@@ -5,7 +5,7 @@ on: push
 jobs:
 
   test:
-    name: "Test (Java-${{ matrix.java }}+${{ matrix.os }})"
+    name: 'Java ${{ matrix.java }} on ${{ matrix.os }}'
     strategy:
       fail-fast: false
       matrix:
