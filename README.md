@@ -11,24 +11,23 @@ It requires a [JDK 16 Early-Access Build](https://jdk.java.net/16) to be install
     description: 'Bach action to execute, defaults to build'
     required: true
     default: 'build'
-
   bach-version:
     description: 'Version of Bach to use, defaults to ea'
     required: true
     default: 'ea'
-
-  project-java-release:
-    description: 'Compile for the specified Java SE release.'
-    required: false
-
   project-name:
     description: 'Name of the project'
     required: false
-
   project-version:
     description: 'Version of the project'
     required: false
-
+  project-main-release:
+    description: 'Compile main modules for the specified Java SE release'
+    required: false
+  project-main-jarslug:
+    description: 'String suffix used within the JAR file name, defaults to the project-version'
+    required: false
+    default: '!'
   working-directory:
     description: 'Working directory, defaults to github.workspace'
     required: true
@@ -64,7 +63,7 @@ Configure versions to explicit values.
     java-version: 16-ea
 - uses: sormuras/bach-build@main
   with:
-    bach-version: 16.x
+    bach-version: ea
     project-version: 1.2.3
-    project-java-release: 11
+    project-main-release: 11
 ```

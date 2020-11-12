@@ -9,8 +9,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        java: [16-ea]
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        java: [ 16-ea ]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -19,7 +19,10 @@ jobs:
           java-version: ${{ matrix.java }}
       - uses: sormuras/bach-build@main
         with:
-          project-version: 0-test
-          project-java-release: 9
-          working-directory: .
           bach-version: ea
+          bach-action: build
+          project-version: 0-test
+          project-main-release: 9
+          project-main-jarslug: slug
+          working-directory: .
+      - run: jar --describe-module --file .bach/workspace/modules/test@slug.jar
