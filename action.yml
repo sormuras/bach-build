@@ -58,7 +58,7 @@ runs:
         name=$([ "${{ inputs.project-name }}" = "" ]             && echo "" || echo " -R-Dbach.project.name=${{ inputs.project-name }}")
         version=$([ "${{ inputs.project-version }}" = "" ]       && echo "" || echo " -R-Dbach.project.version=${{ inputs.project-version }}")
         release=$([ "${{ inputs.project-main-release }}" = "" ]  && echo "" || echo " -R-Dbach.project.main.release=${{ inputs.project-main-release }}")
-        jarslug=$([ "${{ inputs.project-main-jarslug }}" = "!" ] && echo "" || echo " -R-Dbach.project.main.jarslug=${{ inputs.project-main-jarlsug }}")
+        jarslug=$([ "${{ inputs.project-main-jarslug }}" = "!" ] && echo "" || echo " -R-Dbach.project.main.jarslug=${{ inputs.project-main-jarslug }}")
         options=${name}${version}${release}${jarslug}
         echo -e "${{ inputs.bach-action }}()\n/exit\n" > .ACTION.jshell
         jshell${options} https://bit.ly/bach-${{ inputs.bach-version }}-boot - < .ACTION.jshell
