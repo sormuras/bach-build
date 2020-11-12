@@ -25,4 +25,4 @@ jobs:
           project-main-release: 9
           project-main-jarslug: slug
           working-directory: .
-      - run: jar --describe-module --file .bach/workspace/modules/test@slug.jar
+      - run: find . -name "*.jar"
