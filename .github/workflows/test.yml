@@ -21,8 +21,9 @@ jobs:
         with:
           bach-version: ea
           bach-action: build
-          project-version: 0-test
+          project-name: ⁉
+          project-version: 0.47.11-test
           project-main-release: 9
           project-main-jarslug: slug
           working-directory: .
-      - run: find . -name "*.jar"
+      - run: jar --describe-module --file .bach/workspace/modules/test@slug.jar
