@@ -21,8 +21,8 @@ jobs:
         with:
           bach-version: ea
           bach-action: build
-          project-name: ⁉
-          project-version: 0.47.11-test
+          project-name: Test
+          project-version: 47.11-${{ github.sha }}
           project-main-release: 9
           project-main-jarslug: slug
           working-directory: .
