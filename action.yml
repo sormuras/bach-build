@@ -13,9 +13,9 @@ inputs:
     required: true
     default: 'build'
   bach-version:
-    description: 'Version of Bach to use, defaults to ea'
+    description: 'Version of Bach to use, defaults to main'
     required: true
-    default: 'ea'
+    default: 'main'
   project-name:
     description: 'Name of the project'
     required: false
@@ -60,6 +60,9 @@ runs:
         release=$([ "${{ inputs.project-main-release }}" = "" ]  && echo "" || echo " -R-Dbach.project.main.release=${{ inputs.project-main-release }}")
         jarslug=$([ "${{ inputs.project-main-jarslug }}" = "!" ] && echo "" || echo " -R-Dbach.project.main.jarslug=${{ inputs.project-main-jarslug }}")
         options=${name}${version}${release}${jarslug}
-        echo -e "${{ inputs.bach-action }}()\n/exit\n" > .ACTION.jshell
-        jshell${options} https://bit.ly/bach-${{ inputs.bach-version }}-boot - < .ACTION.jshell
-        rm .ACTION.jshell
+        loadurl="https://bit.ly/bach-${{ inputs.bach-version }}-${{ inputs.bach-action }}"
+        echo "::group::Arguments passed to JShell"
+        echo "options=${options}"
+        echo "loadurl=${loadurl}"
+        echo "::endgroup::"
+        jshell ${options} ${loadurl}

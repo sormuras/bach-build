@@ -19,7 +19,7 @@ jobs:
           java-version: ${{ matrix.java }}
       - uses: sormuras/bach-build@main
         with:
-          bach-version: ea
+          bach-version: main
           bach-action: build
           project-name: Test
           project-version: 47.11-${{ github.sha }}
