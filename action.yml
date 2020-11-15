@@ -41,6 +41,7 @@ runs:
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: |
+        echo "::group::List input values given to this action"
         echo "pwd=$(pwd)"
         echo "inputs.bach-action=${{ inputs.bach-action }}"
         echo "inputs.bach-version=${{ inputs.bach-version }}"
@@ -49,8 +50,9 @@ runs:
         echo "inputs.project-main-release=${{ inputs.project-main-release }}"
         echo "inputs.project-main-jarslug=${{ inputs.project-main-jarslug }}"
         echo "inputs.working-directory=${{ inputs.working-directory }}"
-        java --version
+        echo "::endgroup::"
         jshell --version
+        java --version
     - name: 'Run Bach'
       shell: bash
       working-directory: ${{ inputs.working-directory }}
