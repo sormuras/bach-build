@@ -24,6 +24,5 @@ jobs:
           project-name: Test
           project-version: 47.11-${{ github.sha }}
           project-main-release: 9
-          project-main-jarslug: slug
           working-directory: .
-      - run: jar --describe-module --file .bach/workspace/modules/test@slug.jar
+      - run: java --module-path .bach/workspace/modules --describe-module test
