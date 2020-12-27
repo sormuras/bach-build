@@ -1,6 +1,6 @@
 # bach-build
 
-This action builds modular Java projects via calling [Bach](https://github.com/sormuras/bach) 16-ea.
+This action builds modular Java projects via calling [Bach](https://github.com/sormuras/bach) 16.
 
 It requires a [JDK 16 Early-Access Build](https://jdk.java.net/16) to be installed.
 
@@ -12,9 +12,9 @@ It requires a [JDK 16 Early-Access Build](https://jdk.java.net/16) to be install
     required: true
     default: 'build'
   bach-version:
-    description: 'Version of Bach to use, defaults to main'
+    description: 'Version of Bach to use, defaults to 16'
     required: true
-    default: 'main'
+    default: '16'
   project-name:
     description: 'Name of the project'
     required: false
@@ -63,7 +63,7 @@ Configure versions to explicit values.
     java-version: 16-ea
 - uses: sormuras/bach-build@main
   with:
-    bach-version: main
+    bach-version: 16
     project-version: 1.2.3
     project-main-release: 11
 ```
