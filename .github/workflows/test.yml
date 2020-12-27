@@ -25,4 +25,4 @@ jobs:
           project-version: 47.11-${{ github.sha }}
           project-main-release: 9
           working-directory: .
-      - run: java --module-path .bach/workspace/modules --describe-module test
+      - run: java --module-path .bach/workspace/modules-test --describe-module test
