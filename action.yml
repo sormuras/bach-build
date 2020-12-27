@@ -30,7 +30,7 @@ inputs:
     required: false
     default: '!'
   working-directory:
-    description: 'Working directory, defaults to ${{ github.workspace }}'
+    description: 'Working directory, defaults to github.workspace'
     required: true
     default: ${{ github.workspace }}
 
