@@ -1,21 +1,21 @@
-
 name: 'bach-build'
 
 description: 'Build a modular Java project with Bach'
 
 branding:
-  icon: 'music'  
+  icon: 'music'
   color: 'blue'
 
 inputs:
+  bach-version:
+    description: 'The version of Bach to use.
+      Examples of valid versions are `early-access` or `16`.
+      Find available versions listed at https://github.com/sormuras/bach/releases'
+    required: true
   bach-action:
-    description: 'Bach action to execute, defaults to build'
+    description: 'Bach action to execute, defaults to `build`'
     required: true
     default: 'build'
-  bach-version:
-    description: 'Version of Bach to use, defaults to 16'
-    required: true
-    default: '16'
   project-name:
     description: 'Name of the project'
     required: false
@@ -30,7 +30,7 @@ inputs:
     required: false
     default: '!'
   working-directory:
-    description: 'Working directory, defaults to github.workspace'
+    description: 'Working directory, defaults to the common GitHub workspace directory'
     required: true
     default: ${{ github.workspace }}
 
@@ -41,8 +41,7 @@ runs:
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: |
-        echo "::group::List input values given to this action"
-        echo "pwd=$(pwd)"
+        echo "::group::List all input values"
         echo "inputs.bach-action=${{ inputs.bach-action }}"
         echo "inputs.bach-version=${{ inputs.bach-version }}"
         echo "inputs.project-name=${{ inputs.project-name }}"
@@ -50,10 +49,11 @@ runs:
         echo "inputs.project-main-release=${{ inputs.project-main-release }}"
         echo "inputs.project-main-jarslug=${{ inputs.project-main-jarslug }}"
         echo "inputs.working-directory=${{ inputs.working-directory }}"
+        echo "pwd=$(pwd)"
         echo "::endgroup::"
         jshell --version
         java --version
-    - name: 'Run Bach'
+    - name: 'Run Bach ${{ inputs.bach-version }}'
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: |
@@ -62,9 +62,9 @@ runs:
         release=$([ "${{ inputs.project-main-release }}" = "" ]  && echo "" || echo " -R-Dbach.project.main.release=${{ inputs.project-main-release }}")
         jarslug=$([ "${{ inputs.project-main-jarslug }}" = "!" ] && echo "" || echo " -R-Dbach.project.main.jarslug=${{ inputs.project-main-jarslug }}")
         options=${name}${version}${release}${jarslug}
-        loadurl="-R-Dversion=${{ inputs.bach-version }} https://bit.ly/bach-main-${{ inputs.bach-action }}"
+        loadurl="https://github.com/sormuras/bach/raw/main/${{ inputs.bach-action }}"
         echo "::group::Arguments passed to JShell"
         echo "options=${options}"
         echo "loadurl=${loadurl}"
         echo "::endgroup::"
-        jshell ${options} ${loadurl}
+        jshell -R-Dversion=${{ inputs.bach-version }} ${options} ${loadurl}
