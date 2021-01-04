@@ -9,7 +9,6 @@ branding:
 inputs:
   bach-version:
     description: 'The version of Bach to use.
-      Examples of valid versions are `early-access` or `16`.
       Find available versions listed at https://github.com/sormuras/bach/releases'
     required: true
   bach-action:
@@ -62,9 +61,14 @@ runs:
         release=$([ "${{ inputs.project-main-release }}" = "" ]  && echo "" || echo " -R-Dbach.project.main.release=${{ inputs.project-main-release }}")
         jarslug=$([ "${{ inputs.project-main-jarslug }}" = "!" ] && echo "" || echo " -R-Dbach.project.main.jarslug=${{ inputs.project-main-jarslug }}")
         options=${name}${version}${release}${jarslug}
-        loadurl="https://github.com/sormuras/bach/raw/main/${{ inputs.bach-action }}"
+
+        branch='main'
+        if [[ ${{ inputs.bach-version }} == 16* ]]; then branch='releases/16'; fi
+        loadurl="https://github.com/sormuras/bach/raw/${branch}/${{ inputs.bach-action }}"
+
         echo "::group::Arguments passed to JShell"
         echo "options=${options}"
         echo "loadurl=${loadurl}"
         echo "::endgroup::"
+
         jshell -R-Dversion=${{ inputs.bach-version }} ${options} ${loadurl}
