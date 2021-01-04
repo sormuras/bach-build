@@ -9,7 +9,6 @@ It requires a [JDK 16 Early-Access Build](https://jdk.java.net/16) to be install
 ```yaml
   bach-version:
     description: 'The version of Bach to use.
-      Examples of valid versions are `early-access` or `16`.
       Find available versions listed at https://github.com/sormuras/bach/releases'
     required: true
   bach-action:
@@ -43,7 +42,7 @@ _None, yet._
 
 ### Minimal
 
-Using default environment configuration and built-in versions.
+Minimal example
 
 ```yaml
 - uses: actions/checkout@v2
@@ -52,5 +51,5 @@ Using default environment configuration and built-in versions.
     java-version: 16-ea
 - uses: sormuras/bach-build@v1
   with:
-    bach-version: 16
+    bach-version: 16.0.1
 ```
