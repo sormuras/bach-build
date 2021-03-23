@@ -7,22 +7,25 @@ branding:
   color: 'blue'
 
 inputs:
+
   bach-arguments:
-    description: 'The arguments to be passed to Bach.
-                  Defaults to `build`.'
     required: true
     default: 'build'
+    description: 'The arguments to be passed to Bach.
+                  Defaults to `build`.'
+
   bach-version:
+    required: true
+    default: '17-ea'
     description: 'The version of Bach to initialize.
                   Find available versions listed at https://github.com/sormuras/bach/releases.
                   Defaults to `17-ea`.'
-    required: true
-    default: '17-ea'
+
   working-directory:
-    description: 'The working directory to change into.
-                  Defaults to the common GitHub workspace directory'
     required: true
     default: ${{ github.workspace }}
+    description: 'The working directory to change into.
+                  Defaults to the common GitHub workspace directory'
 
 runs:
   using: 'composite'

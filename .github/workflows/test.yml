@@ -4,7 +4,7 @@ on: push
 
 jobs:
 
-  bach-not-initialized:
+  test:
     name: '${{ matrix.test }}: Bach ${{ matrix.bach }}, Java ${{ matrix.java }}, ${{ matrix.os }}'
     strategy:
       fail-fast: false
