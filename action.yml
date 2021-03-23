@@ -67,5 +67,5 @@ runs:
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: |
-        echo ".bach/bin/bach ${{ inputs.bach-arguments }}"
+        echo "🎼 .bach/bin/bach ${{ inputs.bach-arguments }}"
         .bach/bin/bach ${{ inputs.bach-arguments }}
