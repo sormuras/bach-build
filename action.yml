@@ -55,7 +55,7 @@ runs:
         fi
         if [[ $(.bach/bin/bach --version) != ${{ inputs.bach-version }} ]]
         then
-          .bach/bin/bach init ${{ inputs.bach-version }}
+          java .bach/bin/init.java ${{ inputs.bach-version }}
         fi
     - name: 'Run Bach ${{ inputs.bach-version }}'
       shell: bash
