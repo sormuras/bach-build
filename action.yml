@@ -36,7 +36,6 @@ runs:
         echo "inputs.bach-arguments=${{ inputs.bach-arguments }}"
         echo "inputs.working-directory=${{ inputs.working-directory }}"
         echo "::endgroup::"
-        echo "pwd=$(pwd)"
         jshell --version
         java --version
     - name: 'Initialize Bach'
@@ -46,10 +45,6 @@ runs:
         if [[ ! -f .bach/bin/bach ]]
         then
           jshell https://bit.ly/bach-init
-        fi
-        if [[ ! -x .bach/bin/bach ]]
-        then
-          chmod u+x .bach/bin/bach
         fi
         if [[ $(.bach/bin/bach --version) != ${{ inputs.bach-version }} ]]
         then
