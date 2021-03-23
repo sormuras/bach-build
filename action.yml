@@ -43,9 +43,18 @@ runs:
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: |
-        if [[ ! -f .bach/bin/bach ]]; then jshell https://bit.ly/bach-init; fi
-        chmod u+x .bach/bin/bach
-        .bach/bin/bach init ${{ inputs.bach-version }}
+        if [[ ! -f .bach/bin/bach ]]
+        then
+          jshell https://bit.ly/bach-init
+        fi
+        if [[ ! -x .bach/bin/bach ]]
+        then
+          chmod u+x .bach/bin/bach
+        fi
+        if [[ $(.bach/bin/bach --version) != ${{ inputs.bach-version }} ]]
+        then
+          .bach/bin/bach init ${{ inputs.bach-version }}
+        fi
     - name: 'Run Bach ${{ inputs.bach-version }}'
       shell: bash
       working-directory: ${{ inputs.working-directory }}
