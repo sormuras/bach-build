@@ -1,6 +1,6 @@
 name: 'bach-build'
 
-description: 'Build a modular Java project with Bach'
+description: 'Build modular Java projects with Bach'
 
 branding:
   icon: 'music'
@@ -11,21 +11,19 @@ inputs:
   bach-arguments:
     required: true
     default: 'build'
-    description: 'The arguments to be passed to Bach.
-                  Defaults to `build`.'
+    description: 'The arguments to be passed to Bach.'
 
   bach-version:
     required: true
     default: '17-ea'
     description: 'The version of Bach to initialize.
-                  Find available versions listed at https://github.com/sormuras/bach/releases.
-                  Defaults to `17-ea`.'
+                  Find available versions listed at
+                  https://github.com/sormuras/bach/releases'
 
   working-directory:
     required: true
     default: ${{ github.workspace }}
-    description: 'The working directory to change into.
-                  Defaults to the common GitHub workspace directory'
+    description: 'The directory to change into.'
 
 runs:
   using: 'composite'
@@ -34,12 +32,12 @@ runs:
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: |
-        echo "::group::Print input values"
-        echo "inputs.bach-version=${{ inputs.bach-version }}"
+        echo "::group::Print action's input values"
         echo "inputs.bach-arguments=${{ inputs.bach-arguments }}"
+        echo "inputs.bach-version=${{ inputs.bach-version }}"
         echo "inputs.working-directory=${{ inputs.working-directory }}"
         echo "::endgroup::"
-        echo "::group::Print version information"
+        echo "::group::Print JShell's and Java's version information"
         jshell --version
         java --version
         echo "::endgroup::"
@@ -48,24 +46,25 @@ runs:
       working-directory: ${{ inputs.working-directory }}
       run: |
         echo "::group::Initialize Bach"
-        if [[ ! -f .bach/bin/bach ]]
+        if [[ -f .bach/bin/bach ]]
         then
+          echo "Bach already initialized by $GITHUB_REPOSITORY"
+        else
+          echo "Initialize Bach using JShell"
           jshell https://bit.ly/bach-init
+          if [[ "${{ inputs.bach-version }}" == "17-ea" ]]
+          then
+            echo "Bach 17-ea initialized"
+          else
+            echo "Initialize Bach ${{ inputs.bach-version }}"
+            java .bach/bin/init.java ${{ inputs.bach-version }}
+          fi
         fi
-        if [[ ! -x .bach/bin/bach ]]
-        then
-          chmod u+x .bach/bin/bach
-        fi
-        .bach/bin/bach --version
-        if [[ ! "$(.bach/bin/bach --version)" == "${{ inputs.bach-version }}" ]]
-        then
-          java .bach/bin/init.java ${{ inputs.bach-version }}
-        fi
-        .bach/bin/bach --version
         echo "::endgroup::"
     - name: 'Run Bach ${{ inputs.bach-version }}'
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: |
         echo "🎼 .bach/bin/bach ${{ inputs.bach-arguments }}"
+        if [[ ! -x .bach/bin/bach ]]; then chmod u+x .bach/bin/bach; fi
         .bach/bin/bach ${{ inputs.bach-arguments }}
