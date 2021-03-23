@@ -40,7 +40,7 @@ runs:
         jshell --version
         java --version
     - name: 'Initialize Bach'
-      shell: :bash
+      shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: |
         if [[ ! -f .bach/bin/bach ]]; then jshell https://bit.ly/bach-init; fi
