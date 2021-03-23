@@ -34,17 +34,20 @@ runs:
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: |
-        echo "::group::List all input values"
+        echo "::group::Print input values"
         echo "inputs.bach-version=${{ inputs.bach-version }}"
         echo "inputs.bach-arguments=${{ inputs.bach-arguments }}"
         echo "inputs.working-directory=${{ inputs.working-directory }}"
         echo "::endgroup::"
+        echo "::group::Print version information"
         jshell --version
         java --version
+        echo "::endgroup::"
     - name: 'Initialize Bach'
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: |
+        echo "::group::Initialize Bach"
         if [[ ! -f .bach/bin/bach ]]
         then
           jshell https://bit.ly/bach-init
@@ -53,12 +56,16 @@ runs:
         then
           chmod u+x .bach/bin/bach
         fi
-        if [[ $(.bach/bin/bach --version) != ${{ inputs.bach-version }} ]]
+        .bach/bin/bach --version
+        if [[ ! "$(.bach/bin/bach --version)" == "${{ inputs.bach-version }}" ]]
         then
           java .bach/bin/init.java ${{ inputs.bach-version }}
         fi
+        .bach/bin/bach --version
+        echo "::endgroup::"
     - name: 'Run Bach ${{ inputs.bach-version }}'
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: |
+        echo ".bach/bin/bach ${{ inputs.bach-arguments }}"
         .bach/bin/bach ${{ inputs.bach-arguments }}
