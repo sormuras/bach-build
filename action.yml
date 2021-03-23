@@ -7,29 +7,20 @@ branding:
   color: 'blue'
 
 inputs:
-  bach-version:
-    description: 'The version of Bach to use.
-      Find available versions listed at https://github.com/sormuras/bach/releases'
-    required: true
-  bach-action:
-    description: 'Bach action to execute, defaults to `build`'
+  bach-arguments:
+    description: 'The arguments to be passed to Bach.
+                  Defaults to `build`.'
     required: true
     default: 'build'
-  project-name:
-    description: 'Name of the project'
-    required: false
-  project-version:
-    description: 'Version of the project'
-    required: false
-  project-main-release:
-    description: 'Compile main modules for the specified Java SE release'
-    required: false
-  project-main-jarslug:
-    description: 'String suffix used within the JAR file name, defaults to the project-version'
-    required: false
-    default: '!'
+  bach-version:
+    description: 'The version of Bach to initialize.
+                  Find available versions listed at https://github.com/sormuras/bach/releases.
+                  Defaults to `17-ea`.'
+    required: true
+    default: '17-ea'
   working-directory:
-    description: 'Working directory, defaults to the common GitHub workspace directory'
+    description: 'The working directory to change into.
+                  Defaults to the common GitHub workspace directory'
     required: true
     default: ${{ github.workspace }}
 
@@ -41,34 +32,22 @@ runs:
       working-directory: ${{ inputs.working-directory }}
       run: |
         echo "::group::List all input values"
-        echo "inputs.bach-action=${{ inputs.bach-action }}"
         echo "inputs.bach-version=${{ inputs.bach-version }}"
-        echo "inputs.project-name=${{ inputs.project-name }}"
-        echo "inputs.project-version=${{ inputs.project-version }}"
-        echo "inputs.project-main-release=${{ inputs.project-main-release }}"
-        echo "inputs.project-main-jarslug=${{ inputs.project-main-jarslug }}"
+        echo "inputs.bach-arguments=${{ inputs.bach-arguments }}"
         echo "inputs.working-directory=${{ inputs.working-directory }}"
-        echo "pwd=$(pwd)"
         echo "::endgroup::"
+        echo "pwd=$(pwd)"
         jshell --version
         java --version
+    - name: 'Initialize Bach'
+      shell: :bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        if [[ ! -f .bach/bin/bach ]]; then jshell https://bit.ly/bach-init; fi
+        chmod u+x .bach/bin/bach
+        .bach/bin/bach init ${{ inputs.bach-version }}
     - name: 'Run Bach ${{ inputs.bach-version }}'
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: |
-        name=$([ "${{ inputs.project-name }}" = "" ]             && echo "" || echo " -R-Dbach.project.name=${{ inputs.project-name }}")
-        version=$([ "${{ inputs.project-version }}" = "" ]       && echo "" || echo " -R-Dbach.project.version=${{ inputs.project-version }}")
-        release=$([ "${{ inputs.project-main-release }}" = "" ]  && echo "" || echo " -R-Dbach.project.main.release=${{ inputs.project-main-release }}")
-        jarslug=$([ "${{ inputs.project-main-jarslug }}" = "!" ] && echo "" || echo " -R-Dbach.project.main.jarslug=${{ inputs.project-main-jarslug }}")
-        options=${name}${version}${release}${jarslug}
-
-        branch='main'
-        if [[ ${{ inputs.bach-version }} == 16* ]]; then branch='releases/16'; fi
-        loadurl="https://github.com/sormuras/bach/raw/${branch}/${{ inputs.bach-action }}"
-
-        echo "::group::Arguments passed to JShell"
-        echo "options=${options}"
-        echo "loadurl=${loadurl}"
-        echo "::endgroup::"
-
-        jshell -R-Dversion=${{ inputs.bach-version }} ${options} ${loadurl}
+        .bach/bin/bach ${{ inputs.bach-arguments }}
