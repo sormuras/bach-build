@@ -50,15 +50,8 @@ runs:
         then
           echo "Bach already initialized by $GITHUB_REPOSITORY"
         else
-          echo "Initialize Bach using JShell"
-          jshell https://bit.ly/bach-init
-          if [[ "${{ inputs.bach-version }}" == "17-ea" ]]
-          then
-            echo "Bach 17-ea initialized"
-          else
-            echo "Initialize Bach ${{ inputs.bach-version }}"
-            java .bach/bin/init.java ${{ inputs.bach-version }}
-          fi
+          echo "Initialize Bach ${{ inputs.bach-version }} using JShell"
+          jshell -R-Dbach-version=${{ inputs.bach-version }} https://git.io/bach-init
         fi
         echo "::endgroup::"
     - name: 'Run Bach ${{ inputs.bach-version }}'

@@ -39,9 +39,10 @@ Minimal example
 
 ```yaml
 - uses: actions/checkout@v2
-- uses: actions/setup-java@v1
+- uses: actions/setup-java@v2
   with:
     java-version: 16
+    distribution: 'zulu'
 - uses: sormuras/bach-build@v1
   with:
     bach-version: 17-ea-1
