@@ -42,6 +42,7 @@ Minimal example
 - uses: actions/setup-java@v1
   with:
     java-version: 16
+    distribution: 'zulu'
 - uses: sormuras/bach-build@v1
   with:
     bach-version: 17-ea-1
