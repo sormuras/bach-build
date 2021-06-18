@@ -24,6 +24,6 @@ jobs:
         with:
           working-directory: test/${{ matrix.test }}
           bach-version: ${{ matrix.bach }}
-          bach-arguments: --limit-tools javac,jar build
+          bach-arguments: build
       - run: java --module-path .bach/workspace/modules --describe-module test
         working-directory: test/${{ matrix.test }}
