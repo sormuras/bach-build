@@ -2,7 +2,7 @@
 
 This action builds modular Java projects via calling [Bach](https://github.com/sormuras/bach).
 
-It requires a [JDK 16](https://jdk.java.net/16) to be installed.
+It requires [JDK 17](https://jdk.java.net/17) or higher to be installed.
 
 ## Inputs
 
@@ -41,9 +41,9 @@ Minimal example
 - uses: actions/checkout@v2
 - uses: actions/setup-java@v2
   with:
-    java-version: 16
+    java-version: 17-ea
     distribution: 'zulu'
 - uses: sormuras/bach-build@v1
   with:
-    bach-version: 17-ea-1
+    bach-version: 17-M1
 ```
