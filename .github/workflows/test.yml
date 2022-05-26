@@ -19,8 +19,11 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           java-version: ${{ matrix.java }}
+          distribution: temurin
       - uses: ./
         with:
           working-directory: test/${{ matrix.test }}
           bach-version: ${{ matrix.bach }}
-          bach-arguments: --version
+          bach-arguments: build
+      - run: java --module-path .bach/out/main/modules --describe-module test
+        working-directory: test/${{ matrix.test }}

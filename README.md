@@ -42,6 +42,7 @@ Minimal example
 - uses: actions/setup-java@v3
   with:
     java-version: 17
+    distribution: temurin
 - uses: sormuras/bach-build@v1
   with:
     bach-version: HEAD
