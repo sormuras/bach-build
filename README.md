@@ -15,10 +15,10 @@ It requires [JDK 17](https://jdk.java.net/17) or higher to be installed.
 
   bach-version:
     required: true
-    default: '17-ea'
+    default: 'HEAD'
     description: 'The version of Bach to initialize.
                   Find available versions listed at https://github.com/sormuras/bach/releases.
-                  Defaults to `17-ea`.'
+                  Defaults to `HEAD`.'
 
   working-directory:
     required: true
@@ -38,12 +38,11 @@ _None, yet._
 Minimal example
 
 ```yaml
-- uses: actions/checkout@v2
-- uses: actions/setup-java@v2
+- uses: actions/checkout@v3
+- uses: actions/setup-java@v3
   with:
-    java-version: 17-ea
-    distribution: 'zulu'
+    java-version: 17
 - uses: sormuras/bach-build@v1
   with:
-    bach-version: 17-M1
+    bach-version: HEAD
 ```
