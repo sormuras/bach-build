@@ -7,7 +7,7 @@ jobs:
   test:
     name: '${{ matrix.test }}: Bach ${{ matrix.bach }}, Java ${{ matrix.java }}, ${{ matrix.os }}'
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
         java: [ 17, 18 ]
@@ -25,5 +25,5 @@ jobs:
           working-directory: test/${{ matrix.test }}
           bach-version: ${{ matrix.bach }}
           bach-arguments: build
-      - run: java --module-path .bach/out/main/modules --describe-module test
+      - run: java --module-path .bach/out/test/modules --describe-module test
         working-directory: test/${{ matrix.test }}
